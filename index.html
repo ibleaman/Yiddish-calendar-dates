@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="yi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Website to translate between Hebrew and Gregorian calendar dates in Standard Yiddish">
+    <meta name="keywords" content="Yiddish calendar, ייִדישער לוח, ייִדישער קאַלענדאַר">
+    <meta name="author" content="Isaac L. Bleaman">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css" integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+    <link rel="stylesheet" href="fonts/davidclm/davidclm.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>קאַלענדאַר ← לוח</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="top">קאַלענדאַר ← לוח</h1>
+          <table class="table">
+          <thead>
+            <tr>
+              <th style="width: 50%; text-align: center;" colspan="2">סעקולערע דאַטע</th>
+              <th style="width: 50%; text-align: center;" colspan="2">ייִדישע דאַטע</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 20%;"><b>נאָמינאַטיװ:</b><br><span id="gdate_nominative"></span></td>
+              <td style="width: 20%;"><b>אַקוזאַטיװ:</b><br><span id="gdate_accusative"></span></td>
+              <td style="width: 20%;"><b>פֿאַרשטריכלט:</b><br><span id="hdate_apostrophes"></span></td>
+              <td style="width: 20%;"><b>נישט־פֿאַרשטריכלט:</b><br><span id="hdate_no_apostrophes"></span><br>
+              (<span id="hyear_no_apostrophes"></span> = <span id="hyear_num"></span>)</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <form>
+            <div class="form-row">
+              <div class="form-group">
+                <input required type="number" class="form-control" style="width:75px" name="gd" placeholder="טאָג" size="2" maxlength="2" id="gdField" data-bind="value:replyNumber" min="1" max="30">
+              </div>
+              <div class="form-group">
+                <select required name="gm" id="gmDrop" class="form-control" style="width:120px">
+                  <option selected disabled>חודש</option>
+                  <option value="1">יאַנואַר</option>
+                  <option value="2">פֿעברואַר</option>
+                  <option value="3">מאַרץ</option>
+                  <option value="4">אַפּריל</option>
+                  <option value="5">מײַ</option>
+                  <option value="6">יוני</option>
+                  <option value="7">יולי</option>
+                  <option value="8">אױגוסט</option>
+                  <option value="9">סעפּטעמבער</option>
+                  <option value="10">אָקטאָבער</option>
+                  <option value="11">נאָװעמבער</option>
+                  <option value="12">דעצעמבער</option>
+                </select>
+              </div><!-- .form-group -->
+              <div class="form-group">
+                <input required type="number" class="form-control" style="width:75px" name="gy" placeholder="יאָר" size="4" maxlength="4" id="gyField" data-bind="value:replyNumber" min="1">
+              </div><!-- .form-group -->
+              <div class="form-group">
+                <div class="form-check">
+                  <input type="checkbox" name="gs" value="on" id="gsToggle">
+                  <label class="checkbox" for="gs">נאָך זונפֿאַרגאַנג</label>
+                </div><!-- .form-check -->
+              </div><!-- .form-group -->
+            </div><!-- .form-row -->
+            <div class="form-group">
+              <button type="submit" id="fetch" value="1" class="btn btn-primary"><i class="glyphicons glyphicons-refresh"></i> קאַלענדאַר ← לוח</button>
+            </div><!-- .form-group -->
+          </form>
+
+          <h2>װעגן דעם מכשיר</h2>
+
+          <p>אַלע דאַטעס װערן געשריבן לױט די תּקנות פֿון אײנהײטלעכן ייִדישן אױסלײג (דעם „ייִװאָ־אױסלײג“).</p>
+          <h4>סעקולערע דאַטע</h4>
+          <p>די פֿאָרמע אין <b>נאָמינאַטיװ</b> ניצט מען נאָר אין פֿאַל װען די דאַטע איז דער סוביעקט פֿון זאַץ: „הײַנט איז...“</p>
+          <p>די פֿאָרמע אין <b>אַקוזאַטיװ</b> ניצט מען אין אַלע אַנדערע פֿאַלן: װען מע װיל זאָגן װען עפּעס איז געשען, װען מע װיל שרײַבן די דאַטע אױף אַ בריװ אָדער אַרטיקל, אאַז"װ.</p>
+
+          <h4>ייִדישע דאַטע</h4>
+          <p>אין די ייִדישע לערנביכלעך װערן רעקאָמענדירט צװײ פֿאָרמאַטן פֿון דער ייִדישער דאַטע: <b>פֿאַרשטריכלט</b> (ד"ה מיט אַפּאָסטראָפֿן) און <b>נישט־פֿאַרשטריכלט</b>.
+            לױט שבֿע צוקער (<i>ייִדיש: אַן אַרײַנפֿיר</i>, ב' 2, זז' 144–146)
+            שרײַבט מען בדרך־כּלל פֿאַרשטריכלטערהײט, אַזױ װי דער שטײגער איז בײַ טראַדיציאָנעלע ייִדן.
+            לױט אוריאל װײַנרײַך (<i>קאַלעדזש־ייִדיש</i>, זז' 213–215)
+            שרײַבט מען נישט־פֿאַרשטריכלטערהײט.
+          </p>
+          <p>אין אַן עיבור־יאָר מעג מען שרײַבן <b>אָדר א׳, אָדר ב׳</b>
+             אָדער <b>אָדר, ואָדר</b>.
+             (די צװײטע רעקאָמענדירט אוריאל װײַנרײַך; אַזױ שטײט געשריבן אין <i>קאַלעדזש־ייִדיש</i> און להבֿדיל אױף זײַן מצבֿה.)
+           </p>
+
+          <h3>דער קאַלקולוס</h3>
+          <p>דער מאַטעמאַטישער יסוד פֿון דעם װעבזײַטל איז די פּראָגראַם <a href="https://www.hebcal.com/">hebcal</a>.</p>
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <hr>
+        <div class="footer-copyright text-center py-3">
+          דרוקרעכט &copy; <script>new Date().getFullYear()>2010&&document.write(new Date().getFullYear());</script> <a href="https://www.isaacbleaman.com">אײַזיק בלימאַן</a>.
+        </div>
+      </footer>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js" integrity="sha384-a9xOd0rz8w0J8zqj1qJic7GPFfyMfoiuDjC9rqXlVOcGO/dmRqzMn34gZYDTel8k" crossorigin="anonymous"></script>
+    <script type = "text/javascript" language="javascript">
+      $(document).ready(function() {
+
+        // Set today's date
+
+        var d = new Date();
+        var gd = d.getDate();
+        var gm = d.getMonth() + 1;
+        var gy = d.getFullYear();
+
+        // Override today's date if user selected a date
+
+        $.urlParam = function(name){
+          var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+          if (results) {
+            return results[1] || 0;
+          }
+        }
+
+        if ($.urlParam('gm')) { // if there's a month selected (i.e., if the user submitted the form)
+          gm = $.urlParam('gm');
+          $('#gmDrop').val(gm);
+          if ($.urlParam('gd')) {
+            if (parseInt($.urlParam('gd')) > 0) {
+              gd = parseInt($.urlParam('gd')); // parseInt to remove any leading 0s
+              $('#gdField').val(gd);
+            }
+          }
+          if ($.urlParam('gs')) { // increment one if the sunset box is checked
+            gd = parseInt(gd) + 1;
+            $('#gdField').val(gd);
+          }
+          if ($.urlParam('gy')) {
+            gy = $.urlParam('gy');
+            $('#gyField').val(gy);
+          }
+        };
+
+        // Translate Gregorian date to Yiddish
+
+        const gmonthNames_Yiddish = ["יאַנואַר", "פֿעברואַר", "מאַרץ", "אַפּריל", "מײַ", "יוני",
+          "יולי", "אױגוסט", "סעפּטעמבער", "אָקטאָבער", "נאָװעמבער", "דעצעמבער"
+        ];
+
+        var gdayName_Yiddish = "";
+        var gdayName_Yiddish_accusative = "";
+        if (gd < 20) {
+          gdayName_Yiddish = "דער " + gd + "טער";
+          gdayName_Yiddish_accusative = "דעם " + gd + "טן";
+        }
+        else {
+          gdayName_Yiddish = "דער " + gd + "סטער";
+          gdayName_Yiddish_accusative = "דעם " + gd + "סטן";
+        }
+        $('#gdate_nominative').append(gdayName_Yiddish + ' ' + gmonthNames_Yiddish[gm - 1] + ' ' + gy);
+        $('#gdate_accusative').append(gdayName_Yiddish_accusative + ' ' + gmonthNames_Yiddish[gm - 1] + ' ' + gy);
+
+        var hm = -1;
+        var hy_num = -1;
+        var heb = "";
+        $.ajaxSetup({
+          async: false
+        });
+        $.getJSON('https://www.hebcal.com/converter/?cfg=json&gy=' + gy + '&gm=' + gm + '&gd=' + gd + '&g2h=1', function(date) {
+          hm = date.hm;
+          hy_num = date.hy;
+          heb = date.hebrew;
+        });
+
+        const hmonthNames_Yiddish = {
+          "Tishrei": "תּישרי",
+          "Cheshvan": "חשװן",
+          "Kislev": "כּיסלו",
+          "Tevet": "טבֿת",
+          "Sh'vat": "שבֿט",
+          "Adar": "אָדר",
+          "Adar I": "אָדר",
+          "Adar II": "ואָדר",
+          "Nisan": "ניסן",
+          "Iyyar": "אײר",
+          "Sivan": "סיװן",
+          "Tamuz": "תּמוז",
+          "Av": "אָבֿ",
+          "Elul": "אלול"
+        };
+
+        var heb_day = heb.split(" ")[0];
+        var heb_year = heb.split(" ")[heb.split(" ").length - 1];
+
+        function replaceDiacritics(text, withApostrophes) {
+          text = text.replace("פ", "פּ");
+          text = text.replace("ת", "תּ");
+          if (!withApostrophes) {
+            text = text.replace(/[״׳]/, "");
+          }
+          return text;
+        }
+        $('#hdate_apostrophes').append(replaceDiacritics(heb_day, true) + ' ' + hmonthNames_Yiddish[hm] + ' ' + replaceDiacritics(heb_year, true));
+        $('#hdate_no_apostrophes').append(replaceDiacritics(heb_day, false) + ' ' + hmonthNames_Yiddish[hm] + ' ' + replaceDiacritics(heb_year, false));
+        $('#hyear_no_apostrophes').append(replaceDiacritics(heb_year, false));
+        $('#hyear_num').append(hy_num);
+
+        $('#gmDrop').val($.urlParam('gm'));
+        $('#gdField').val($.urlParam('gd'));
+        $('#gyField').val($.urlParam('gy'));
+        if ($.urlParam('gs')) {
+          $('#gsToggle').prop('checked', true);
+        }
+      });
+    </script>
+  </body>
+</html>

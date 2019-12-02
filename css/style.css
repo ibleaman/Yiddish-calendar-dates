@@ -1,0 +1,20 @@
+* {
+  font-family: 'David CLM', serif;
+}
+
+h1, h3, h4, h5, h6 {
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+h2 {
+  margin-top: 50px;
+}
+
+h4 {
+  font-weight: bold;
+}
+
+.top {
+  margin-bottom: 40px;
+}

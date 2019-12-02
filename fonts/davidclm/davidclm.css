@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'David CLM';
+    src: url('davidclm-bold.woff2') format('woff2'),
+         url('davidclm-bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'David CLM';
+    src: url('davidclm-bolditalic.woff2') format('woff2'),
+         url('davidclm-bolditalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'David CLM';
+    src: url('davidclm-mediumitalic.woff2') format('woff2'),
+         url('davidclm-mediumitalic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'David CLM';
+    src: url('davidclm-medium.woff2') format('woff2'),
+         url('davidclm-medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
