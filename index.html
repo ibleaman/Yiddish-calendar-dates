@@ -11,12 +11,11 @@
     <link rel="stylesheet" href="css/style.css">
     <title>קאַלענדאַר ← לוח</title>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-153662231-1');
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-153662231-1', 'auto');
+      ga('send', 'pageview');
     </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
   </head>
   <body>
     <div class="container">
@@ -34,7 +33,7 @@
             <tr>
               <td style="width: 20%;"><b>נאָמינאַטיװ:</b><br><span id="gdate_nominative"></span></td>
               <td style="width: 20%;"><b>פֿאַרשטריכלט:</b><br><span id="hdate_apostrophes"></span><br>
-                (<span id="hyear_no_apostrophes"></span> = <span id="hyear_num"></span>)</td>
+                (<span id="hyear_apostrophes"></span> = <span id="hyear_num"></span>)</td>
             </tr>
             <tr>
               <td style="width: 20%;"><b>אַקוזאַטיװ:</b><br><span id="gdate_accusative"></span></td>
@@ -67,21 +66,25 @@
                   <option value="11">נאָװעמבער</option>
                   <option value="12">דעצעמבער</option>
                 </select>
-              </div><!-- .form-group -->
+              </div>
               <div class="form-group">
                 <input required type="number" class="form-control" style="width:75px" name="gy" placeholder="יאָר" size="4" maxlength="4" id="gyField" data-bind="value:replyNumber" min="1">
-              </div><!-- .form-group -->
+              </div>
               <div class="form-group">
                 <div class="form-check">
                   <input type="checkbox" name="gs" value="on" id="gsToggle">
                   <label class="checkbox" for="gs">נאָך זונפֿאַרגאַנג</label>
-                </div><!-- .form-check -->
-              </div><!-- .form-group -->
-            </div><!-- .form-row -->
+                </div>
+              </div>
+            </div>
             <div class="form-group">
               <button type="submit" id="fetch" value="1" class="btn btn-primary"><i class="glyphicons glyphicons-refresh"></i> קאַלענדאַר ← לוח</button>
-            </div><!-- .form-group -->
+            </div>
           </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
 
           <h2>װעגן דעם מכשיר</h2>
 
@@ -99,17 +102,22 @@
           </p>
           <p>אין אַן עיבור־יאָר מעג מען שרײַבן <b>אָדר א׳, אָדר ב׳</b>
              אָדער <b>אָדר, ואָדר</b>.
-             (די צװײטע רעקאָמענדירט אוריאל װײַנרײַך; אַזױ שטײט געשריבן אין <i>קאַלעדזש־ייִדיש</i> און להבֿדיל אױף זײַן מצבֿה.)
+             (די צװײטע רעקאָמענדירט אוריאל װײַנרײַך; אַזױ שטײט געשריבן אין <i>קאַלעדזש־ייִדיש</i> און להבֿדיל אױף װײַנרײַכס מצבֿה.)
            </p>
 
           <h3>דער קאַלקולוס</h3>
-          <p>דער מאַטעמאַטישער יסוד פֿון דעם װעבזײַטל איז די פּראָגראַם <a href="https://www.hebcal.com/">hebcal</a>.</p>
+          <p>דער מאַטעמאַטישער יסוד פֿון דעם װעבזײַטל איז די פּראָגראַם <a href="https://www.hebcal.com/">hebcal</a>.
+            מע דאַרף זיך היטן מיט דאַטעס אין (סעקולערן) יאָר 1752 און פֿריִער,
+            װײַל hebcal נעמט נישט אַרײַן אין חשבון דעם צענטאָגיקן איבעררוק אין קאַלענדאַר װאָס
+            איז אײַנגעפֿירט געװאָרן פֿונעם פּױפּס גרעגאָרי דעם 13טן.
+            אַזױ װי hebcal װײַזט נישט דעם ערשטן אות פֿון ייִדישן יאָר (ה' אלפֿים, 5000)
+            דאַרף מען זיך אױך היטן אױב די דאַטע איז פֿריִער װי 5000/1240.</p>
         </div>
       </div>
 
       <footer class="page-footer">
         <hr>
-        <div class="footer-copyright text-center py-3">
+        <div class="footer-copyright py-3">
           דרוקרעכט &copy; <script>new Date().getFullYear()>2010&&document.write(new Date().getFullYear());</script> <a href="https://www.isaacbleaman.com">אײַזיק בלימאַן</a>.
         </div>
       </footer>
@@ -210,14 +218,15 @@
         var heb_year = heb.split(" ")[heb.split(" ").length - 1];
 
         function replaceDiacritics(text, withApostrophes) {
-          text = text.replace("פ", "פּ");
-          text = text.replace("ת", "תּ");
+          text = text.replace(/פ/g, "פּ");
+          text = text.replace(/ת/g, "תּ");
           if (!withApostrophes) {
-            text = text.replace(/[״׳]/, "");
+            text = text.replace(/[״׳]/g, "");
           }
           return text;
         }
         $('#hdate_apostrophes').append(replaceDiacritics(heb_day, true) + ' ' + hmonthNames_Yiddish[hm] + ' ' + replaceDiacritics(heb_year, true));
+        $('#hyear_apostrophes').append(replaceDiacritics(heb_year, true));
         $('#hdate_no_apostrophes').append(replaceDiacritics(heb_day, false) + ' ' + hmonthNames_Yiddish[hm] + ' ' + replaceDiacritics(heb_year, false));
         $('#hyear_no_apostrophes').append(replaceDiacritics(heb_year, false));
         $('#hyear_num').append(hy_num);
