@@ -23,24 +23,24 @@
         <div class="col">
           <h1 class="top">קאַלענדאַר ← לוח (<a href="reverse.html">⇄</a>)</h1>
           <table class="table">
-          <thead>
-            <tr>
-              <th>סעקולערע דאַטע</th>
-              <th>ייִדישע דאַטע</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="width: 20%;"><b>נאָמינאַטיװ:</b><br><span id="gdate_nominative"></span></td>
-              <td style="width: 20%;"><b>פֿאַרשטריכלט:</b><br><span id="hdate_apostrophes"></span><br>
-                (<span id="hyear_apostrophes"></span> = <span id="hyear_num"></span>)</td>
-            </tr>
-            <tr>
-              <td style="width: 20%;"><b>אַקוזאַטיװ:</b><br><span id="gdate_accusative"></span></td>
-              <td style="width: 20%;"><b>נישט־פֿאַרשטריכלט:</b><br><span id="hdate_no_apostrophes"></span></td>
-            </tr>
-          </tbody>
-        </table>
+            <thead>
+              <tr>
+                <th>סעקולערע דאַטע</th>
+                <th>ייִדישע דאַטע</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="width: 20%;"><b>נאָמינאַטיװ:</b><br><span id="gdate_nominative"></span></td>
+                <td style="width: 20%;"><b>פֿאַרשטריכלט:</b><br><span id="hdate_apostrophes"></span><br>
+                  (<span id="hyear_apostrophes"></span> = <span id="hyear_num"></span>)</td>
+              </tr>
+              <tr>
+                <td style="width: 20%;"><b>אַקוזאַטיװ:</b><br><span id="gdate_accusative"></span></td>
+                <td style="width: 20%;"><b>נישט־פֿאַרשטריכלט:</b><br><span id="hdate_no_apostrophes"></span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="row">
@@ -48,7 +48,7 @@
           <form>
             <div class="form-row">
               <div class="form-group">
-                <input required type="number" class="form-control" style="width:75px" name="gd" placeholder="טאָג" size="2" maxlength="2" id="gdField" data-bind="value:replyNumber" min="1" max="30">
+                <input required type="number" class="form-control" style="width:75px" name="gd" placeholder="טאָג" size="2" maxlength="2" id="gdField" data-bind="value:replyNumber" min="1" max="31">
               </div>
               <div class="form-group">
                 <select required name="gm" id="gmDrop" class="form-control" style="width:120px">
@@ -81,6 +81,8 @@
               <button type="submit" id="fetch" value="1" class="btn btn-primary"><i class="glyphicons glyphicons-refresh"></i> קאַלענדאַר ← לוח</button>
             </div>
           </form>
+          <b>נ״ב:</b> אױב עס באַקומט זיך אַז אַ ייִדישע דאַטע איז „undefined“ איז דאָס דערפֿאַר,
+          װײַל די סעקולערע דאַטע עקסיסטירט נישט (למשל, דער 31סטער פֿעברואַר).
         </div>
       </div>
       <div class="row">
