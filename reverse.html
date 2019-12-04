@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="yi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Website to translate between Hebrew and Gregorian calendar dates in Standard Yiddish">
+    <meta name="keywords" content="Yiddish calendar, ייִדישער לוח, ייִדישער קאַלענדאַר">
+    <meta name="author" content="Isaac L. Bleaman">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css" integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+    <link rel="stylesheet" href="fonts/davidclm/davidclm.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>לוח ← קאַלענדאַר</title>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-153662231-1');
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="top">לוח ← קאַלענדאַר (<a href="index.html">⇄</a>)</h1>
+          <table class="table">
+          <thead>
+            <tr>
+              <th>ייִדישע דאַטע</th>
+              <th>סעקולערע דאַטע</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 20%;"><b>פֿאַרשטריכלט:</b><br><span id="hdate_apostrophes"></span><br>
+                (<span id="hyear_apostrophes"></span> = <span id="hyear_num"></span>)</td>
+              <td style="width: 20%;"><b>נאָמינאַטיװ:</b><br><span id="gdate_nominative"></span></td>
+            </tr>
+            <tr>
+              <td style="width: 20%;"><b>נישט־פֿאַרשטריכלט:</b><br><span id="hdate_no_apostrophes"></span></td>
+              <td style="width: 20%;"><b>אַקוזאַטיװ:</b><br><span id="gdate_accusative"></span></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-8">
+          <form>
+            <div class="form-row">
+              <div class="form-group">
+                <select required name="hd" id="hdDrop" class="form-control" style="width:80px">
+                  <option selected disabled>טאָג</option>
+                  <option value="1">א׳</option>
+                  <option value="2">ב׳</option>
+                  <option value="3">ג׳</option>
+                  <option value="4">ד׳</option>
+                  <option value="5">ה׳</option>
+                  <option value="6">ו׳</option>
+                  <option value="7">ז׳</option>
+                  <option value="8">ח׳</option>
+                  <option value="9">ט׳</option>
+                  <option value="10">י׳</option>
+                  <option value="11">י״א</option>
+                  <option value="12">י״ב</option>
+                  <option value="13">י״ג</option>
+                  <option value="14">י״ד</option>
+                  <option value="15">ט״ו</option>
+                  <option value="16">ט״ז</option>
+                  <option value="17">י״ז</option>
+                  <option value="18">י״ח</option>
+                  <option value="19">י״ט</option>
+                  <option value="20">כ׳</option>
+                  <option value="21">כ״א</option>
+                  <option value="22">כ״ב</option>
+                  <option value="23">כ״ג</option>
+                  <option value="24">כ״ד</option>
+                  <option value="25">כ״ה</option>
+                  <option value="26">כ״ו</option>
+                  <option value="27">כ״ז</option>
+                  <option value="28">כ״ח</option>
+                  <option value="29">כ״ט</option>
+                  <option value="30">ל׳</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select required name="hm" id="hmDrop" class="form-control" style="width:120px">
+                  <option selected disabled>חודש</option>
+                  <option value="Tishrei">תּישרי</option>
+                  <option value="Cheshvan">חשװן</option>
+                  <option value="Kislev">כּיסלו</option>
+                  <option value="Tevet">טבֿת</option>
+                  <option value="Shvat">שבֿט</option>
+                  <option value="Adar1">אָדר</option>
+                  <option value="Adar2">ואָדר</option>
+                  <option value="Nisan">ניסן</option>
+                  <option value="Iyyar">אײר</option>
+                  <option value="Sivan">סיװן</option>
+                  <option value="Tamuz">תּמוז</option>
+                  <option value="Av">אָבֿ</option>
+                  <option value="Elul">אלול</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <input required type="number" class="form-control" style="width:75px" name="hy" placeholder="יאָר" size="4" maxlength="4" id="hyField" data-bind="value:replyNumber" min="1">
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" id="fetch" value="1" class="btn btn-primary"><i class="glyphicons glyphicons-refresh"></i> לוח ← קאַלענדאַר</button>
+            </div>
+          </form>
+        </div>
+        <div class="col">
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+
+          <h2>װעגן דעם מכשיר</h2>
+
+          <p>אַלע דאַטעס װערן געשריבן לױט די תּקנות פֿון אײנהײטלעכן ייִדישן אױסלײג (דעם „ייִװאָ־אױסלײג“).</p>
+          <h4>סעקולערע דאַטע</h4>
+          <p>די פֿאָרמע אין <b>נאָמינאַטיװ</b> ניצט מען נאָר אין פֿאַל װען די דאַטע איז דער סוביעקט פֿון זאַץ: „הײַנט איז...“</p>
+          <p>די פֿאָרמע אין <b>אַקוזאַטיװ</b> ניצט מען אין אַלע אַנדערע פֿאַלן: װען מע װיל זאָגן װען עפּעס איז געשען, װען מע װיל שרײַבן די דאַטע אױף אַ בריװ אָדער אַרטיקל, אאַז"װ.</p>
+
+          <h4>ייִדישע דאַטע</h4>
+          <p>אין די ייִדישע לערנביכלעך װערן רעקאָמענדירט צװײ פֿאָרמאַטן פֿון דער ייִדישער דאַטע: <b>פֿאַרשטריכלט</b> (ד"ה מיט אַפּאָסטראָפֿן) און <b>נישט־פֿאַרשטריכלט</b>.
+            לױט שבֿע צוקער (<i>ייִדיש: אַן אַרײַנפֿיר</i>, ב' 2, זז' 144–146)
+            שרײַבט מען בדרך־כּלל פֿאַרשטריכלטערהײט, אַזױ װי דער שטײגער איז בײַ טראַדיציאָנעלע ייִדן.
+            לױט אוריאל װײַנרײַך (<i>קאַלעדזש־ייִדיש</i>, זז' 213–215)
+            שרײַבט מען נישט־פֿאַרשטריכלטערהײט.
+          </p>
+          <p>אין אַן עיבור־יאָר מעג מען שרײַבן <b>אָדר א׳, אָדר ב׳</b>
+             אָדער <b>אָדר, ואָדר</b>.
+             (די צװײטע רעקאָמענדירט אוריאל װײַנרײַך; אַזױ שטײט געשריבן אין <i>קאַלעדזש־ייִדיש</i> און להבֿדיל אױף װײַנרײַכס מצבֿה.)
+           </p>
+
+          <h3>דער קאַלקולוס</h3>
+          <p>דער מאַטעמאַטישער יסוד פֿון דעם װעבזײַטל איז די פּראָגראַם <a href="https://www.hebcal.com/">hebcal</a>.
+            מע דאַרף זיך היטן מיט דאַטעס אין (סעקולערן) יאָר 1752 און פֿריִער,
+            װײַל hebcal נעמט נישט אַרײַן אין חשבון דעם צענטאָגיקן איבעררוק אין קאַלענדאַר װאָס
+            איז אײַנגעפֿירט געװאָרן פֿונעם פּױפּס גרעגאָרי דעם 13טן.
+            אַזױ װי hebcal װײַזט נישט דעם ערשטן אות פֿון ייִדישן יאָר (ה' אלפֿים, 5000)
+            דאַרף מען זיך אױך היטן אױב די דאַטע איז פֿריִער װי 5000/1240.</p>
+        </div>
+      </div>
+
+      <footer class="page-footer">
+        <hr>
+        <div class="footer-copyright py-3">
+          דרוקרעכט &copy; <script>new Date().getFullYear()>2010&&document.write(new Date().getFullYear());</script> <a href="https://www.isaacbleaman.com">אײַזיק בלימאַן</a>.
+        </div>
+      </footer>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    <script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js" integrity="sha384-a9xOd0rz8w0J8zqj1qJic7GPFfyMfoiuDjC9rqXlVOcGO/dmRqzMn34gZYDTel8k" crossorigin="anonymous"></script>
+    <script type = "text/javascript" language="javascript">
+      $(document).ready(function() {
+
+        // Set today's date
+
+        var d = new Date();
+        var gd = d.getDate();
+        var gm = d.getMonth() + 1;
+        var gy = d.getFullYear();
+
+        var hd;
+        var hm;
+        var hy;
+        var hy_num;
+        var heb = "";
+
+        $.ajaxSetup({
+          async: false
+        });
+        $.getJSON('https://www.hebcal.com/converter/?cfg=json&gy=' + gy + '&gm=' + gm + '&gd=' + gd + '&g2h=1', function(date) {
+          hm = date.hm;
+          hy_num = date.hy;
+          heb = date.hebrew;
+        });
+
+        $.urlParam = function(name){
+          var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+          if (results) {
+            return results[1] || 0;
+          }
+        }
+
+        if ($.urlParam('hm')) { // if there's a month selected (i.e., if the user submitted the form)
+          hm = $.urlParam('hm');
+          $('#hmDrop').val(hm);
+          if ($.urlParam('hd')) {
+            if (parseInt($.urlParam('hd')) > 0) {
+              hd = parseInt($.urlParam('hd')); // parseInt to remove any leading 0s
+              $('#hdDrop').val(hd);
+            }
+          }
+          if ($.urlParam('hy')) {
+            hy = $.urlParam('hy');
+            $('#hyField').val(hy);
+          }
+        };
+
+        // Translate Hebrew date to Gregorian in Yiddish
+
+        $.getJSON('https://www.hebcal.com/converter/?cfg=json&hy=' + hy + '&hm=' + hm + '&hd=' + hd + '&h2g=1', function(date) {
+          gm = date.gm;
+          gd = date.gd;
+          gy = date.gy;
+          heb = date.hebrew;
+          hm = date.hm;
+          hy_num = date.hy;
+        });
+
+        const gmonthNames_Yiddish = ["יאַנואַר", "פֿעברואַר", "מאַרץ", "אַפּריל", "מײַ", "יוני",
+          "יולי", "אױגוסט", "סעפּטעמבער", "אָקטאָבער", "נאָװעמבער", "דעצעמבער"
+        ];
+
+        var gdayName_Yiddish = "";
+        var gdayName_Yiddish_accusative = "";
+        if (gd < 20) {
+          gdayName_Yiddish = "דער " + gd + "טער";
+          gdayName_Yiddish_accusative = "דעם " + gd + "טן";
+        }
+        else {
+          gdayName_Yiddish = "דער " + gd + "סטער";
+          gdayName_Yiddish_accusative = "דעם " + gd + "סטן";
+        }
+        $('#gdate_nominative').append(gdayName_Yiddish + ' ' + gmonthNames_Yiddish[gm - 1] + ' ' + gy);
+        $('#gdate_accusative').append(gdayName_Yiddish_accusative + ' ' + gmonthNames_Yiddish[gm - 1] + ' ' + gy);
+
+        const hmonthNames_Yiddish = {
+          "Tishrei": "תּישרי",
+          "Cheshvan": "חשװן",
+          "Kislev": "כּיסלו",
+          "Tevet": "טבֿת",
+          "Sh'vat": "שבֿט",
+          "Adar": "אָדר",
+          "Adar I": "אָדר",
+          "Adar II": "ואָדר",
+          "Nisan": "ניסן",
+          "Iyyar": "אײר",
+          "Sivan": "סיװן",
+          "Tamuz": "תּמוז",
+          "Av": "אָבֿ",
+          "Elul": "אלול"
+        };
+
+        var heb_day = heb.split(" ")[0];
+        var heb_year = heb.split(" ")[heb.split(" ").length - 1];
+
+        function replaceDiacritics(text, withApostrophes) {
+          text = text.replace("פ", "פּ");
+          text = text.replace("ת", "תּ");
+          if (!withApostrophes) {
+            text = text.replace(/[״׳]/, "");
+          }
+          return text;
+        }
+        $('#hdate_apostrophes').append(replaceDiacritics(heb_day, true) + ' ' + hmonthNames_Yiddish[hm] + ' ' + replaceDiacritics(heb_year, true));
+        $('#hyear_apostrophes').append(replaceDiacritics(heb_year, true));
+        $('#hdate_no_apostrophes').append(replaceDiacritics(heb_day, false) + ' ' + hmonthNames_Yiddish[hm] + ' ' + replaceDiacritics(heb_year, false));
+        $('#hyear_no_apostrophes').append(replaceDiacritics(heb_year, false));
+        $('#hyear_num').append(hy_num);
+
+        $('#gmDrop').val($.urlParam('gm'));
+        $('#gdField').val($.urlParam('gd'));
+        $('#gyField').val($.urlParam('gy'));
+      });
+    </script>
+  </body>
+</html>
