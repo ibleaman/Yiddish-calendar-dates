@@ -31,9 +31,9 @@
             </thead>
             <tbody>
               <tr>
-                <td style="width: 20%;"><b>נאָמינאַטיװ:</b><br><span id="gdate_nominative"></span></td>
+                <td style="width: 20%;"><b>נאָמינאַטיװ:</b><br><span id="gdate_nominative"></span><br>&nbsp;&nbsp;&nbsp;(<span id="after_sunset"></span> זונפֿאַרגאַנג)</td>
                 <td style="width: 20%;"><b>פֿאַרשטריכלט:</b><br><span id="hdate_apostrophes"></span><br>
-                  (<span id="hyear_apostrophes"></span> = <span id="hyear_num"></span>)</td>
+                  &nbsp;&nbsp;&nbsp;(<span id="hyear_apostrophes"></span> = <span id="hyear_num"></span>)</td>
               </tr>
               <tr>
                 <td style="width: 20%;"><b>אַקוזאַטיװ:</b><br><span id="gdate_accusative"></span></td>
@@ -137,6 +137,8 @@
 
         var d = new Date();
         var gd = d.getDate();
+        var gd_sunset = d.getDate();
+        var after_sunset = "פֿאַר";
         var gm = d.getMonth() + 1;
         var gy = d.getFullYear();
 
@@ -151,20 +153,18 @@
 
         if ($.urlParam('gm')) { // if there's a month selected (i.e., if the user submitted the form)
           gm = $.urlParam('gm');
-          $('#gmDrop').val(gm);
           if ($.urlParam('gd')) {
             if (parseInt($.urlParam('gd')) > 0) {
               gd = parseInt($.urlParam('gd')); // parseInt to remove any leading 0s
-              $('#gdField').val(gd);
+              gd_sunset = parseInt($.urlParam('gd'));
             }
           }
           if ($.urlParam('gs')) { // increment one if the sunset box is checked
-            gd = parseInt(gd) + 1;
-            $('#gdField').val(gd);
+            gd_sunset = parseInt(gd_sunset) + 1;
+            after_sunset = "נאָך";
           }
           if ($.urlParam('gy')) {
             gy = $.urlParam('gy');
-            $('#gyField').val(gy);
           }
         };
 
@@ -193,7 +193,7 @@
         $.ajaxSetup({
           async: false
         });
-        $.getJSON('https://www.hebcal.com/converter/?cfg=json&gy=' + gy + '&gm=' + gm + '&gd=' + gd + '&g2h=1', function(date) {
+        $.getJSON('https://www.hebcal.com/converter/?cfg=json&gy=' + gy + '&gm=' + gm + '&gd=' + gd_sunset + '&g2h=1', function(date) {
           hm = date.hm;
           hy_num = date.hy;
           heb = date.hebrew;
@@ -232,6 +232,7 @@
         $('#hdate_no_apostrophes').append(replaceDiacritics(heb_day, false) + ' ' + hmonthNames_Yiddish[hm] + ' ' + replaceDiacritics(heb_year, false));
         $('#hyear_no_apostrophes').append(replaceDiacritics(heb_year, false));
         $('#hyear_num').append(hy_num);
+        $('#after_sunset').append(after_sunset);
 
         $('#gmDrop').val($.urlParam('gm'));
         $('#gdField').val($.urlParam('gd'));
